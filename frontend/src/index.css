@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+body{
+  font-family: Outfit,sans-serif;
+}
+
+@theme {
+  --color-primary: #5f6FFF;
+}
+.active {
+  font-weight: bold;
+  color: var(--color-primary);
+}
