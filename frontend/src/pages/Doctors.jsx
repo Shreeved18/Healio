@@ -26,7 +26,7 @@ const Doctors = () => {
             <p className='text-gray-600'>Browse through the doctors specialist.</p>
             <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
                 <button className={ `px-3 py-1 rounded border text-sm transition-all sm:hidden ${showFilter ? "bg-primary text-white" : ""}` } onClick={()=>setShowFilter(prev=>!prev)}>Filters</button>
-                <div className={` flex-col gap-4 text-sm text-gray-600 ${showFilter ? "flex" : "hidden sm-flex"}`} >
+                <div className={` flex-col gap-4 text-sm text-gray-600 ${showFilter ? "flex" : "hidden sm:flex"}`} >
                     <p onClick={()=>speciality?.toLowerCase()==='general physician' ? navigate('/doctors/') : navigate('/doctors/General Physician')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality?.toLowerCase()==="general physician" ? "bg-indigo-100 text-black": ""}`}>General Physician</p>
                     <p onClick={()=>speciality?.toLowerCase()==='gynecologist' ? navigate('/doctors/') : navigate('/doctors/Gynecologist')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality?.toLowerCase()==="gynecologist" ? "bg-indigo-100 text-black": ""}`}>Gynecologist</p>
                     <p onClick={()=>speciality?.toLowerCase()==='dermatologist' ? navigate('/doctors/') : navigate('/doctors/Dermatologist')} className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded transition-all cursor-pointer ${speciality?.toLowerCase()==="dermatologist" ? "bg-indigo-100 text-black": ""}`}>Dermatologist</p>
