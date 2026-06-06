@@ -1,60 +1,115 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { Mail, Phone, MapPin } from 'lucide-react'
+
 const Footer = () => {
   return (
-    <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm'>
+    <footer className='mt-32 px-6 md:px-12 lg:px-20 border-t border-gray-200 bg-white'>
+      
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 py-14 text-sm'>
 
-  {/* LEFT SECTION */}
-  <div>
+        {/* LEFT SECTION */}
+        <div className='lg:col-span-2'>
 
-    <img className='mb-5 w-32' src={assets.logo} alt='Logo' />
+          <img
+            className='w-50 cursor-pointer '
+            src={assets.logo}
+            alt='Healio Logo'
+          />
 
-    <p className='text-sm text-gray-500 mb-4'>
-      Your health, our priority.
-    </p>
+          <p className='text-gray-500 text-base mb-4'>
+            Your health, our priority.
+          </p>
 
-    <p className='w-full md:w-2/3 text-gray-600 leading-6'>
-      Healio is a trusted healthcare platform that helps users book appointments
-      with experienced doctors easily and conveniently. We connect patients with
-      qualified medical professionals to ensure better healthcare access for everyone.
-    </p>
+          <p className='max-w-md text-gray-600 leading-7'>
+            Healio simplifies healthcare by helping patients connect with
+            trusted doctors and book appointments effortlessly. Fast, secure,
+            and designed for better healthcare experiences.
+          </p>
 
-  </div>
+        </div>
 
-  {/* COMPANY SECTION */}
-  <div>
+        {/* COMPANY */}
+        <div>
 
-    <p className='text-xl font-medium mb-5'>
-      COMPANY
-    </p>
+          <h3 className='text-lg font-semibold text-gray-900 mb-5'>
+            Company
+          </h3>
 
-    <ul className='flex flex-col gap-2 text-gray-600'>
+          <ul className='space-y-3 text-gray-600'>
 
-      <li>Home</li>
-      <li>About Us</li>
-      <li>Privacy Policy</li>
+            <li className='hover:text-black transition cursor-pointer'>
+              Home
+            </li>
 
-    </ul>
+            <li className='hover:text-black transition cursor-pointer'>
+              About Us
+            </li>
 
-  </div>
+            <li className='hover:text-black transition cursor-pointer'>
+              Privacy Policy
+            </li>
 
-  {/* CONTACT SECTION */}
-  <div>
+          </ul>
 
-    <p className='text-xl font-medium mb-5'>
-      CONTACT
-    </p>
+        </div>
 
-    <ul className='flex flex-col gap-2 text-gray-600'>
+        {/* CONTACT */}
+        <div>
 
-      <li>support@healio.com</li>
-      <li>+1 (123) 456-7890</li>
+          <h3 className='text-lg font-semibold text-gray-900 mb-5'>
+            Contact
+          </h3>
 
-    </ul>
+          <ul className='space-y-4 text-gray-600'>
 
-  </div>
+            <li className='flex items-center gap-3'>
+              <Mail size={18} className='text-gray-500' />
+              support@healio.com
+            </li>
 
-</div>
+            <li className='flex items-center gap-3'>
+              <Phone size={18} className='text-gray-500' />
+              +1 (123) 456-7890
+            </li>
+
+            <li className='flex items-center gap-3'>
+              <MapPin size={18} className='text-gray-500' />
+              New York, USA
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+      {/* BOTTOM */}
+      <div className='border-t border-gray-200 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-gray-500 text-sm'>
+
+        <p>
+          © 2026 Healio. All rights reserved.
+        </p>
+
+        <div className='flex items-center gap-5'>
+
+          <a href='#' className='hover:text-black transition'>
+            Instagram
+          </a>
+
+          <a href='#' className='hover:text-black transition'>
+            Twitter
+          </a>
+
+          <a href='#' className='hover:text-black transition'>
+            LinkedIn
+          </a>
+
+        </div>
+
+      </div>
+
+    </footer>
   )
 }
 

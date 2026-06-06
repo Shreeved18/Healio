@@ -1,87 +1,195 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext.jsx'
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const [showMenu, setShowMenu] = React.useState(false);
-  const [showProfileMenu, setShowProfileMenu] = React.useState(false);
-  const [token, setToken] = React.useState(true);
+
+  const navigate = useNavigate()
+
+  const { token, setToken, userData } = useContext(AppContext)
+
+  const [showMenu, setShowMenu] = useState(false)
+  const [showProfileMenu, setShowProfileMenu] = useState(false)
+
+  const logout = () => {
+    setToken(false)
+    localStorage.removeItem('token')
+  }
+
+  const navLinkClass = ({ isActive }) =>
+    `relative pb-1 transition-all duration-200 ${isActive
+      ? 'text-primary font-semibold'
+      : 'text-gray-700 hover:text-primary'
+    }`
+
   return (
-    <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
 
-      <img className='w-44 cursor-pointer' src={assets.logo} alt="logo" />
+    <header className='w-full border-b border-gray-200  bg-white sticky top-0 z-50'>
 
-      <ul className='hidden md:flex items-start gap-5 font-medium'>
+      <div className='flex items-center justify-between h-16 px-4 md:px-8 lg:px-12'>
 
-        <NavLink to="/">
-          <li className='py-1'>HOME</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-        </NavLink>
+        {/* Logo */}
+        <img
+          onClick={() => navigate('/')}
+          className='w-42 cursor-pointer'
+          src={assets.logo}
+          alt="logo"
+        />
 
-        <NavLink to="/doctors">
-          <li className='py-1'>ALL DOCTORS</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-        </NavLink>
+        {/* Desktop Nav */}
+        <ul className="md:flex items-start gap-5 font-medium hidden">
 
-        <NavLink to="/about">
-          <li className='py-1'>ABOUT</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-        </NavLink>
+          <NavLink to="/" onClick={() => window.scrollTo(0, 0)}>
+            <li className="py-1">HOME</li>
+            <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
+          </NavLink>
 
-        <NavLink to="/contact">
-          <li className='py-1'>CONTACT</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-        </NavLink>
+          <NavLink to="/doctors" onClick={() => window.scrollTo(0, 0)}>
+            <li className="py-1">ALL DOCTORS</li>
+            <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
+          </NavLink>
 
-      </ul>
-      <div className='flex items-center gap-4'>
-        {
-          token ? <div className='relative flex items-center gap-2'>
-            <div className='flex items-center gap-2 cursor-pointer' onClick={() => setShowProfileMenu((prev) => !prev)}>
-              <img src={assets.profile_pic} alt="profile" className='w-10 h-10 rounded-full cursor-pointer' />
-              <img src={assets.dropdown_icon} alt="dropdown" className='w-4' />
-            </div>
-            <div className={`absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 ${showProfileMenu ? 'block' : 'hidden'}`}>
-              <div className='min-w-48 bg-stone-100 rounded flex-col gap-4 p-4'>
-                <p onClick={() => { setShowProfileMenu(false); navigate('/my-profile') }} className='hover:text-black cursor-pointer'>My Profile</p>
-                <p onClick={() => { setShowProfileMenu(false); navigate('/my-appointments') }} className='hover:text-black cursor-pointer'>My Appointments</p>
-                <p onClick={() => setShowProfileMenu(false)} className='hover:text-black cursor-pointer'>Logout</p>
+          <NavLink to="/about" onClick={() => window.scrollTo(0, 0)}>
+            <li className="py-1">ABOUT</li>
+            <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
+          </NavLink>
+
+          <NavLink to="/contact" onClick={() => window.scrollTo(0, 0)}>
+            <li className="py-1">CONTACT</li>
+            <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
+          </NavLink>
+
+        </ul>
+
+        {/* Right Side */}
+        <div className='flex items-center gap-4'>
+
+          {
+            token && userData ? (
+
+              <div className='relative'>
+
+                <div
+                  className='flex items-center gap-2 cursor-pointer'
+                  onClick={() => setShowProfileMenu(prev => !prev)}
+                >
+                  <img
+                    src={userData.image}
+                    alt="profile"
+                    className='w-9 h-9 rounded-full object-cover'
+                  />
+
+                  <img
+                    src={assets.dropdown_icon}
+                    alt="dropdown"
+                    className='w-3'
+                  />
+                </div>
+
+                {
+                  showProfileMenu && (
+                    <div className='absolute right-0 top-12 bg-white shadow-lg border rounded-xl min-w-52 p-3 z-20'>
+
+                      <p
+                        onClick={() => {
+                          navigate('/my-profile')
+                          setShowProfileMenu(false)
+                        }}
+                        className='px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer'
+                      >
+                        My Profile
+                      </p>
+
+                      <p
+                        onClick={() => {
+                          navigate('/my-appointments')
+                          setShowProfileMenu(false)
+                        }}
+                        className='px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer'
+                      >
+                        My Appointments
+                      </p>
+
+                      <p
+                        onClick={logout}
+                        className='px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer text-red-500'
+                      >
+                        Logout
+                      </p>
+
+                    </div>
+                  )
+                }
+
               </div>
-            </div>
-          </div>
-            : <div className='flex items-center gap-4'>
-              <button onClick={() => navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>CREATE ACCOUNT</button>
-            </div>
-        }
-        <img src={assets.menu_icon} alt="menu" className='w-6 md:hidden cursor-pointer' onClick={() => setShowMenu(true)} />
-        {/*mobile menu*/}
-        <div className={`${showMenu ? 'fixed inset-0 z-20' : 'hidden'} md:hidden bg-white overflow-y-auto transition-all`}>
-          <div className='flex items-center justify-between px-6 py-4 border-b border-gray-200'>
-            <img className='w-36' src={assets.logo} alt="menu" />
-            <img className='w-7 cursor-pointer' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="close" />
-          </div>
-          <ul className='flex flex-col items-center gap-2 mt-5 px-5 py-6 text-lg font-medium'>
 
-            <NavLink to="/">
-              <li  onClick={() => setShowMenu(false)}><p className=' rounded inline-block px-5 py-2'>HOME</p></li>
-            </NavLink>
+            ) : (
 
-            <NavLink to="/doctors">
-              <li  onClick={() => setShowMenu(false)}><p className=' rounded inline-block px-5 py-2'>ALL DOCTORS</p></li>
-            </NavLink>
+              <button
+                onClick={() => navigate('/login')}
+                className='hidden md:block bg-primary text-white px-6 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition'
+              >
+                CREATE ACCOUNT
+              </button>
 
-            <NavLink to="/about">
-              <li  onClick={() => setShowMenu(false)}><p className=' rounded inline-block px-5 py-2'>ABOUT</p></li>
-            </NavLink>
+            )
+          }
 
-            <NavLink to="/contact">
-              <li onClick={() => setShowMenu(false)}><p className=' rounded inline-block px-5 py-2'>CONTACT</p></li>
-            </NavLink>
-          </ul>
+          {/* Mobile Menu Icon */}
+          <img
+            src={assets.menu_icon}
+            alt="menu"
+            className='w-6 md:hidden cursor-pointer'
+            onClick={() => setShowMenu(true)}
+          />
+
         </div>
+
       </div>
-    </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`${showMenu ? 'fixed inset-0 z-50 bg-white' : 'hidden'
+          } md:hidden`}
+      >
+
+        <div className='flex items-center justify-between px-5 h-16 border-b'>
+
+          <img className='w-32' src={assets.logo} alt="logo" />
+
+          <img
+            className='w-6 cursor-pointer'
+            onClick={() => setShowMenu(false)}
+            src={assets.cross_icon}
+            alt="close"
+          />
+
+        </div>
+
+        <ul className='flex flex-col gap-5 p-6 text-lg font-medium'>
+
+          <NavLink to="/" onClick={() => setShowMenu(false)}>
+            HOME
+          </NavLink>
+
+          <NavLink to="/doctors" onClick={() => setShowMenu(false)}>
+            ALL DOCTORS
+          </NavLink>
+
+          <NavLink to="/about" onClick={() => setShowMenu(false)}>
+            ABOUT
+          </NavLink>
+
+          <NavLink to="/contact" onClick={() => setShowMenu(false)}>
+            CONTACT
+          </NavLink>
+
+        </ul>
+
+      </div>
+
+    </header>
   )
 }
 
