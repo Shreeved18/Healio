@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const AllAppointments = () => {
   const { aToken, appointments, getAllAppointments, appointmentCancel } = useContext(AdminContext);
   const { calculateAge, currency } = useContext(AppContext);
-const { slotDateFormat } = useContext(AppContext);
+  const { slotDateFormat } = useContext(AppContext);
   useEffect(() => {
     if (aToken) {
       getAllAppointments();
@@ -140,7 +140,14 @@ const { slotDateFormat } = useContext(AppContext);
 
                 {/* Actions */}
                 <div>
-                  {appointment.cancelled ? (
+                  {appointment.isCompleted ? (
+                    <div className="inline-flex items-center gap-2 rounded-lg bg-green-50 px-3 py-2 text-green-600">
+                      <span>✓</span>
+                      <span className="text-sm font-medium">
+                        Completed
+                      </span>
+                    </div>
+                  ) : appointment.cancelled ? (
                     <div className="inline-flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-red-600">
                       <AlertCircle size={16} />
                       <span className="text-sm font-medium">
@@ -149,17 +156,17 @@ const { slotDateFormat } = useContext(AppContext);
                     </div>
                   ) : (
                     <button
-                      onClick={() => {appointmentCancel(appointment._id)}}
+                      onClick={() => appointmentCancel(appointment._id)}
                       className="
-                    w-9 h-9
-                    flex items-center justify-center
-                    rounded-full
-                    bg-red-100
-                    text-red-600
-                    hover:bg-red-600
-                    hover:text-white
-                    transition-all
-                  "
+      w-9 h-9
+      flex items-center justify-center
+      rounded-full
+      bg-red-100
+      text-red-600
+      hover:bg-red-600
+      hover:text-white
+      transition-all
+    "
                     >
                       ✕
                     </button>

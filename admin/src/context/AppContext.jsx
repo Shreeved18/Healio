@@ -3,7 +3,11 @@ export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
     const calculateAge = (dob) => {
+        if (!dob || dob === "Not Selected") return "";
+
         const birthDate = new Date(dob);
+        if (Number.isNaN(birthDate.getTime())) return "";
+
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
 

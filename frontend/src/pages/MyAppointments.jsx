@@ -6,7 +6,7 @@ import { Trash2, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const MyAppointments = () => {
-  const { backendUrl, token, fetchDoctor ,slotDateFormat} = React.useContext(AppContext);
+  const { backendUrl, token, fetchDoctor, slotDateFormat } = React.useContext(AppContext);
   const [appointments, setAppointments] = React.useState([]);
   const navigate = useNavigate();
   const getAppointments = async () => {
@@ -126,25 +126,56 @@ const MyAppointments = () => {
             <div></div>
 
             <div className='flex flex-col gap-2 justify-end'>
-              {!item.cancelled && item.payment && <div className="flex items-center gap-1.5 rounded-lg bg-green-50 px-3 py-2 text-green-500">
+              {!item.cancelled && item.payment && !item.isCompleted && <div className="flex items-center gap-1.5 rounded-lg bg-green-50 px-3 py-2 text-green-500">
                 <AlertCircle size={16} />
                 <span className="text-sm font-medium">
                   Payment Successful
                 </span>
               </div>}
-              {!item.cancelled && !item.payment && <button onClick={() => { appointmentRazorpay(item._id) }} className='text-sm text-center text-stone-500 sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300'>Pay Online</button>}
-              {!item.cancelled && <button onClick={() => { cancelAppointment(item._id) }} className='text-sm text-center text-stone-500 sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300'>Cancel Appointment</button>}
 
-              {item.cancelled && (
 
-                <div className="flex items-center gap-1.5 rounded-lg bg-red-50 px-3 py-2 text-red-500">
-                  <AlertCircle size={16} />
-                  <span className="text-sm font-medium">
-                    Appointment Cancelled
-                  </span>
-                </div>
+              <div className="flex flex-col gap-2 justify-end">
 
-              )}
+                {item.cancelled ? (
+                  <div className="flex items-center gap-1.5 rounded-lg bg-red-50 px-3 py-2 text-red-500">
+                    <AlertCircle size={16} />
+                    <span className="text-sm font-medium">
+                      Appointment Cancelled
+                    </span>
+                  </div>
+                ) : item.isCompleted ? (
+                  <div className="flex items-center gap-1.5 rounded-lg bg-green-50 px-3 py-2 text-green-600">
+                    <AlertCircle size={16} />
+                    <span className="text-sm font-medium">
+                      Appointment Completed
+                    </span>
+                  </div>
+                ) : (
+                  <>
+                    {!item.payment && (
+                      <button
+                        onClick={() => appointmentRazorpay(item._id)}
+                        className="text-sm text-center text-stone-500 sm:min-w-48 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300"
+                      >
+                        Pay Online
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => cancelAppointment(item._id)}
+                      className="text-sm text-center text-stone-500 sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
+                    >
+                      Cancel Appointment
+                    </button>
+                  </>
+                )}
+
+              </div>
+
+
+
+
+
             </div>
           </div>
         ))}
