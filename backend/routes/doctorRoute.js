@@ -1,6 +1,7 @@
 import express from 'express';
-import { doctorList ,loginDoctor,appointmentsDoctor,appointmentCancel,appointmentComplete,doctorDashboard,doctorProfile,updateDoctorProfile} from '../controllers/doctorcontroller.js';
+import { doctorList ,loginDoctor,appointmentsDoctor,appointmentCancel,appointmentComplete,doctorDashboard,doctorProfile,updateDoctorProfile} from '../controllers/doctorController.js';
 import authDoctor from '../middlewares/authDoctor.js';
+
 
 
 
