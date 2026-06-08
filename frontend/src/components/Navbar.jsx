@@ -60,8 +60,16 @@ const Navbar = () => {
             <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
           </NavLink>
 
+          <p
+            onClick={() => {
+              window.location.href = import.meta.env.VITE_ADMIN_URL
+            }}
+            className='px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer border border-gray-200 rounded-full flex items-center gap-2'
+          >
+            Admin Panel
+          </p>
         </ul>
-        
+
 
         {/* Right Side */}
         <div className='flex items-center gap-4'>
