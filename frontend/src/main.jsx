@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import AppContextProvider from './context/AppContext.jsx'
 import { ToastContainer, toast } from 'react-toastify';
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/scrollToTop.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
